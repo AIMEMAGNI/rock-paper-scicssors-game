@@ -36,6 +36,7 @@ function game() {
         displayResult(result);
     }
 
+    
     if (computerScore === 5) {
         displayResult("You lost the game!");
     } else {
