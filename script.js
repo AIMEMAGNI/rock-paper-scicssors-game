@@ -26,25 +26,21 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    var computerScore = 0;
-    var playerScore = 0;
-    var count = 0;
+    var resultContainer = document.getElementById("result-container");
+    resultContainer.innerHTML = ""; // Clear previous results
 
-    for (count = 0; count < 5; count++) {
+    for (var i = 0; i < playerSelections.length; i++) {
         var computerSelection = getComputerChoice();
-        var result = playRound(playerSelections[count], computerSelection);
-        displayResult(result);
+        var playerSelection = playerSelections[i];
+        var result = playRound(playerSelection, computerSelection);
+        displayResult(result, resultContainer);
     }
 
-    
-    if (computerScore === 5) {
-        displayResult("You lost the game!");
-    } else {
-        displayResult("You won the game!");
-    }
+    playerSelections = []; // Reset player's choices
 }
 
-function displayResult(result) {
-    var resultTextbox = document.getElementById("result-textbox");
-    resultTextbox.value += result + "\n";
+function displayResult(result, container) {
+    var resultElement = document.createElement("p");
+    resultElement.textContent = result;
+    container.appendChild(resultElement);
 }
