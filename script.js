@@ -4,10 +4,13 @@ function getComputerChoice() {
     return choices[randomIndex];
 }
 
-function getPlayerChoice() {
-    var playerChoice = prompt("Please make a choice between rock, paper, or scissors");
-    playerChoice = playerChoice.toLowerCase();
-    return playerChoice;
+var playerSelections = [];  // Array to store player's choices
+
+function selectChoice(choice) {
+    playerSelections.push(choice);
+    if (playerSelections.length === 5) {
+        game();  // Call the game function after the player selects choices for all five rounds
+    }
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -29,21 +32,18 @@ function game() {
 
     for (count = 0; count < 5; count++) {
         var computerSelection = getComputerChoice();
-        var playerSelection = getPlayerChoice();
-        var result = playRound(playerSelection, computerSelection);
-
-        if (result === "You win!") {
-            playerScore++;
-        } else {
-            computerScore++;
-        }
+        var result = playRound(playerSelections[count], computerSelection);
+        displayResult(result);
     }
 
     if (computerScore === 5) {
-        console.log("You lost the game!");
+        displayResult("You lost the game!");
     } else {
-        console.log("You won the game!");
+        displayResult("You won the game!");
     }
 }
 
-game();
+function displayResult(result) {
+    var resultTextbox = document.getElementById("result-textbox");
+    resultTextbox.value += result + "\n";
+}
